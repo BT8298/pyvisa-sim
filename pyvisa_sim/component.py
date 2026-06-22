@@ -359,8 +359,8 @@ class Component:
             response = dialogues[query]
             logger.debug("Found response in queries: %s" % repr(response))
 
-            if response is not NoResponse and "RANDOM" in response.decode("utf-8"):
-                response = random_response(response.decode("utf-8")).encode("utf-8")
+            if response is not NoResponse and "RANDOM" in response.decode("latin-1"):
+                response = random_response(response.decode("latin-1")).encode("latin-1")
 
             return response
 
@@ -399,7 +399,7 @@ class Component:
                 value = self._properties[name].get_value()
                 response = response.format(value)
 
-            return response.encode("utf-8")
+            return response.encode("latin-1")
 
         return None
 
@@ -417,7 +417,7 @@ class Component:
             Response if a dialog matched.
 
         """
-        q = query.decode("utf-8")
+        q = query.decode("latin-1")
         for name, parser, response, error_response in self._setters:
             try:
                 value = parser(q)
